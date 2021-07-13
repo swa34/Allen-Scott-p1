@@ -7,6 +7,9 @@ using namespace std;
 typedef unsigned int uint;
 typedef initializer_list<initializer_list<double>> i_list;
 class Matrix {
+ private:
+  double ** matrix;
+  uint rowN, colN;
  public:
   /**
    * Constructor. All elements initialized to 0.
@@ -173,19 +176,46 @@ class Matrix {
  * @return a new matrix containing the subtracted values
  */
   Matrix operator-(const Matrix & m);
-
+  /**
+   * Change the operator * from
+   * number to Matrix object so that it can work as
+   *	the number times every element in the Matrix
+   * @param s double number
+   * @param m constant Matrix reference
+   * @return Matrix a new Matrix object
+   */
   Matrix operator*(double s);
-  Matrix operator*(const Matrix & m);
-  Matrix operator/(double s);
-  Matrix operator-();
-  friend ostream& operator<<(ostream& out, const Matrix& matrix);
-  friend Matrix operator +(double s, const Matrix &m);
-  friend Matrix operator -(double s, const Matrix &m);
-  friend Matrix operator *(double s, const Matrix &m);
-  friend Matrix operator /(double s, const Matrix &m);
+  /**
+ * Creates a new matrix whose values reflect the result of multiplying the given 2 matrices.
+ *
+ * @param  Matrix m
+ * @return a new matrix containing the multiplied values
+ */
 
- private:
-  double ** matrix;
-  uint rowN, colN;
+  Matrix operator*(const Matrix & m);
+  /**
+ * Creates a new matrix whose values reflect the result of one matrixs values being divided by scala.
+ * Note: Only does the division if the divisor is not 0.
+ *
+ * @param s to be divided
+ * @return a new matrix containing the divided values
+ */
+  Matrix operator/(double s);
+  /**
+  * Unary minus operator overload. Negates the values of the calling matrix.
+  *
+  * @return a matrix containing the negated values of the calling matrix
+  */
+  Matrix operator-();
+  /**
+ * Stream insertion operator overload.
+ *
+ * @param output the ostream reference into which the matrix output will be directed
+ * @param matrix the matrix reference whose data will be directed into the ostream
+ * @return reference to the ostream containing the desired matrix output
+ */
+  friend ostream& operator<<(ostream& out, const Matrix& matrix);
+
+
 }; // Matrix
 #endif /* Matrix_h */
